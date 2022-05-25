@@ -9,7 +9,7 @@
         }
     }
     
-    // RE-DIRECT AFTER LOGOUT (TEST)
+    // RE-DIRECT AFTER LOGOUT
     add_action('wp_logout','ps_redirect_after_logout');
     function ps_redirect_after_logout()
     {
