@@ -14,4 +14,22 @@
 		}
 		add_action( 'wp_enqueue_scripts', 'load_fullpage_js_scripts', 10);
 	}
+
+	/* 
+		** ENQUEUE SCRIPTS IN ADMIN DASHBOARD AND/OR SPECIFIC PAGE OF ADMIN DASHBOARD 
+	*/
+	add_action('admin_enqueue_scripts', 'enqueue_scripts_user_crm');
+	function enqueue_scripts_user_crm( $hook )
+	{	
+		/*
+		*	print_r( $hook );
+		*/
+
+ 		if( 'toplevel_page_user-crm' != $hook )
+ 		{
+ 			return;
+		}
+		
+ 		wp_enqueue_style( 'bootstrap-five-min-css', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css', array(), '5.0.1', 'all' );
+	}
 ?>
