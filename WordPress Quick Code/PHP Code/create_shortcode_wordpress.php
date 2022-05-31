@@ -152,4 +152,51 @@
     add_shortcode( 'zx_user_btn', 'zx_get_user_priv_status' );
     // [zx_user_btn login_page_id=""] OR [zx_user_btn login_page_url=""]
 
+
+/* Shortcode For Get Product Variations */
+    function get_product_variations_callback($atts)
+    {
+        $atts = shortcode_atts( array(
+            'product_id' => '',
+            ),
+            $atts
+        );
+
+        $product_id = (int)$atts['product_id'];
+        $product_variation_data = wc_get_product($product_id);
+        $html_holder = '';
+        
+        if( $product_variation_data->is_type( 'variable' ) )
+        {
+            $variations = $product_variation_data->get_available_variations();
+            $html_holder .= '<div class="row product-variations-row">';
+
+            foreach( $variations as $variation):
+
+            $html_holder .= '<div class="col">';
+            $html_holder .= '<div class="product-variation-wrapper">';
+            $html_holder .= '<h6 class="product-variation-title">'.$variation['attributes']['attribute_subscribe-for'].'</h6>';
+            $html_holder .= '<h3 class="product-variation-price">'.$variation['price_html'].'</h3>';
+            $html_holder .= '<a href="'.site_url().'/checkout/?add-to-cart='.$variation['variation_id'].'&quantity=1" class="product-variation-link">lets get started</a>';
+            $html_holder .= '</div></div>';
+            endforeach;
+
+            $html_holder .= '</div>';
+        }
+        elseif( $product_variation_data->is_type( 'simple' ) )
+        {
+            $html_holder .= '<div class="row product-variations-row">';
+            $html_holder .= '<div class="col"></div><div col-sm-3>';
+            $html_holder .= '<div class="product-variation-wrapper">';
+            $html_holder .= '<h6 class="product-variation-title">'.$product_variation_data->get_name().'</h6>';
+            $html_holder .= '<h3 class="product-variation-price">'.$product_variation_data->get_price_html().'</h3>';
+            $html_holder .= '<a href="'.site_url().'/checkout/?add-to-cart='.$product_variation_data->get_ID().'&quantity=1" class="product-variation-link">lets get started</a>';
+            $html_holder .= '</div></div><div class="col"></div></div>';
+        }
+        
+        return $html_holder;
+    }
+    add_shortcode( 'get_product_variations', 'get_product_variations_callback' );
+    // [get_product_variations product_id=""]
+
 ?>
