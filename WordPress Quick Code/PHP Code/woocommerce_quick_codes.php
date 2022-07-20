@@ -218,6 +218,8 @@ $product->get_purchase_note(); // Get purchase note.
         echo $aff_product_meta->get_product_url();
     endif;
 
+    // BUTTON TEXT
+    $aff_product_meta->button_text;
 ?>
 
 

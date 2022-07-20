@@ -16,3 +16,9 @@
         wp_redirect( get_permalink( $std_page_id = 1503 ) );
         exit();
     }
+
+    // CREATE FOLDER IN WORDPRESS
+    if( !is_dir( ABSPATH . 'wp-content/example_folder' ) )
+    {
+	    wp_mkdir_p( ABSPATH . 'wp-content/example_folder' );
+    }
